@@ -109,7 +109,7 @@ int main(int argc, char **argv){
     int y = height / 2;
 
     #ifdef __linux__
-        system("tput smcup");
+        system("tput smcup && tput civis");
     #endif
 
     while(!kbhit()){
@@ -126,7 +126,7 @@ int main(int argc, char **argv){
     printf("\033[00m"); // color reset
 
     #ifdef __linux__
-        system("tput rmcup");
+        system("tput rmcup && tput cnorm");
     #endif
 
     return 0;
