@@ -28,12 +28,12 @@ int randome(int max){
     return rand() % max;
 }
 
-void print_at(int x, int y, char c[4], char color)
+void print_at(int x, int y, char c[4], short color)
 {
    printf("%s\033[%d;%dH%s", colors2[color], y, x, c);
 }
 
-char print_pipe(int *x, int *y, int x_max, int y_max, int length, char direction, char direction_old, char *color){
+char print_pipe(int *x, int *y, int x_max, int y_max, int length, short direction, short direction_old, short *color){
     if ((direction == 0 && direction_old == 1) || (direction == 1 && direction_old == 0)){
         return direction_old;
     } else if ((direction == 2 && direction_old == 3) || (direction == 3 && direction_old == 2)){
@@ -47,7 +47,7 @@ char print_pipe(int *x, int *y, int x_max, int y_max, int length, char direction
                 case 0: *y -= 1; if (*y <= 0){ *y = y_max; *color = randome(7); } break; // up
                 case 1: *y += 1; if (*y > y_max){ *y = 0; *color = randome(7); } break; // down
                 case 2: *x -= 1; if (*x <= 0){ *x = x_max; *color = randome(7); } break; // left
-                case 3: *x += 1; if (*x >= x_max){ *x = 0; *color = randome(7); } break; // rigth
+                case 3: *x += 1; if (*x > x_max){ *x = 0; *color = randome(7); } break; // rigth
             }
             if ((direction == 2 && direction_old == 0) || (direction == 1 && direction_old == 3)){
                 print_at(*x, *y, "┓", *color);
@@ -64,7 +64,7 @@ char print_pipe(int *x, int *y, int x_max, int y_max, int length, char direction
                 case 0: *y -= 1; if (*y <= 0){ *y = y_max; *color = randome(7); } break; // up
                 case 1: *y += 1; if (*y > y_max){ *y = 0; *color = randome(7); } break; // down
                 case 2: *x -= 1; if (*x <= 0){ *x = x_max; *color = randome(7); } break; // left
-                case 3: *x += 1; if (*x >= x_max){ *x = 0; *color = randome(7); } break; // rigth
+                case 3: *x += 1; if (*x > x_max){ *x = 0; *color = randome(7); } break; // rigth
             }
             if (direction <= 1) {
                 print_at(*x, *y, "┃", *color);
@@ -99,8 +99,8 @@ void get_terminal_size(int argc, char **argv, int *width, int *height){
 int main(int argc, char **argv){
     int width = 0;
     int height = 0;
-    char direction_old = 0;
-    char color = 6;
+    short direction_old = 0;
+    short color = 6;
     int start_time = 0;
     srand(time(0));
 
